@@ -11,7 +11,7 @@ const Add = ({
   const onFinish = (value) => {
     try {
       fetch(
-        (process.env.REACT_APP_SERVER_URL || "https://3.108.171.138") +
+        (process.env.REACT_APP_SERVER_URL || "http://3.108.171.138:4000") +
           "/api/products/add-product",
         {
           method: "POST",

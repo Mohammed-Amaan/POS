@@ -19,7 +19,7 @@ const Products = ({
     const getProduct = async () => {
       try {
         const res = await fetch(
-          (process.env.REACT_APP_SERVER_URL || "https://3.108.171.138") +
+          (process.env.REACT_APP_SERVER_URL || "http://3.108.171.138:4000") +
             "/api/products/get-all"
         );
         const data = await res.json();

@@ -12,7 +12,7 @@ const Edit = () => {
     const getProduct = async () => {
       try {
         const res = await fetch(
-          (process.env.REACT_APP_SERVER_URL || "https://3.108.171.138") +
+          (process.env.REACT_APP_SERVER_URL || "http://3.108.171.138:4000") +
             "/api/products/get-all"
         );
         const data = await res.json();
@@ -28,7 +28,7 @@ const Edit = () => {
     const getCategory = async () => {
       try {
         const res = await fetch(
-          (process.env.REACT_APP_SERVER_URL || "https://3.108.171.138") +
+          (process.env.REACT_APP_SERVER_URL || "http://3.108.171.138:4000") +
             "/api/categories/get-all"
         );
         const data = await res.json();
@@ -43,7 +43,7 @@ const Edit = () => {
   const onFinish = (values) => {
     try {
       fetch(
-        (process.env.REACT_APP_SERVER_URL || "https://3.108.171.138") +
+        (process.env.REACT_APP_SERVER_URL || "http://3.108.171.138:4000") +
           "/api/products/update-product",
         {
           method: "PUT",
@@ -76,7 +76,7 @@ const Edit = () => {
     if (window.confirm("Are you sure you want to delete?")) {
       try {
         fetch(
-          (process.env.REACT_APP_SERVER_URL || "https://3.108.171.138") +
+          (process.env.REACT_APP_SERVER_URL || "http://3.108.171.138:4000") +
             "/api/products/delete-product",
           {
             method: "DELETE",
