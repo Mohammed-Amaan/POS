@@ -17,11 +17,12 @@ const InvoicePage = () => {
   const searchInput = useRef(null);
 
   useEffect(() => {
-    console.log(process.env.REACT_APP_SERVER_URL);
+    console.log(process.env.REACT_APP_SERVER_URL || "https://3.108.171.138");
     const getInvoices = async () => {
       try {
         const res = await fetch(
-          process.env.REACT_APP_SERVER_URL + "/api/invoices/get-all"
+          (process.env.REACT_APP_SERVER_URL || "https://3.108.171.138") +
+            "/api/invoices/get-all"
         );
         const data = await res.json();
         const newData = data.map((item) => {

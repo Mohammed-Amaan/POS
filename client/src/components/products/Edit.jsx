@@ -12,7 +12,8 @@ const Edit = () => {
     const getProduct = async () => {
       try {
         const res = await fetch(
-          process.env.REACT_APP_SERVER_URL + "/api/products/get-all"
+          (process.env.REACT_APP_SERVER_URL || "https://3.108.171.138") +
+            "/api/products/get-all"
         );
         const data = await res.json();
         setProducts(data);
@@ -27,7 +28,8 @@ const Edit = () => {
     const getCategory = async () => {
       try {
         const res = await fetch(
-          process.env.REACT_APP_SERVER_URL + "/api/categories/get-all"
+          (process.env.REACT_APP_SERVER_URL || "https://3.108.171.138") +
+            "/api/categories/get-all"
         );
         const data = await res.json();
         setCategories(data);
@@ -40,11 +42,15 @@ const Edit = () => {
 
   const onFinish = (values) => {
     try {
-      fetch(process.env.REACT_APP_SERVER_URL + "/api/products/update-product", {
-        method: "PUT",
-        body: JSON.stringify({ ...values, productId: editingItem._id }),
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-      });
+      fetch(
+        (process.env.REACT_APP_SERVER_URL || "https://3.108.171.138") +
+          "/api/products/update-product",
+        {
+          method: "PUT",
+          body: JSON.stringify({ ...values, productId: editingItem._id }),
+          headers: { "Content-type": "application/json; charset=UTF-8" },
+        }
+      );
       setProducts(
         products.map((item) => {
           if (item._id === editingItem._id) {
@@ -70,7 +76,8 @@ const Edit = () => {
     if (window.confirm("Are you sure you want to delete?")) {
       try {
         fetch(
-          process.env.REACT_APP_SERVER_URL + "/api/products/delete-product",
+          (process.env.REACT_APP_SERVER_URL || "https://3.108.171.138") +
+            "/api/products/delete-product",
           {
             method: "DELETE",
             body: JSON.stringify({ productId: id }),

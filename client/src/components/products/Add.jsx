@@ -10,11 +10,15 @@ const Add = ({
   const [form] = Form.useForm();
   const onFinish = (value) => {
     try {
-      fetch(process.env.REACT_APP_SERVER_URL + "/api/products/add-product", {
-        method: "POST",
-        body: JSON.stringify(value),
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-      });
+      fetch(
+        (process.env.REACT_APP_SERVER_URL || "https://3.108.171.138") +
+          "/api/products/add-product",
+        {
+          method: "POST",
+          body: JSON.stringify(value),
+          headers: { "Content-type": "application/json; charset=UTF-8" },
+        }
+      );
       message.success("Product successfully added.");
       setIsAddModalOpen(false);
       form.resetFields();

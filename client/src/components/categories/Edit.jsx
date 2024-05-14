@@ -12,7 +12,8 @@ const Edit = ({
   const onFinish = (values) => {
     try {
       fetch(
-        process.env.REACT_APP_SERVER_URL + "/api/categories/update-category",
+        (process.env.REACT_APP_SERVER_URL || "https://3.108.171.138") +
+          "/api/categories/update-category",
         {
           method: "PUT",
           body: JSON.stringify({ ...values, categoryId: editingRow._id }),
@@ -37,7 +38,8 @@ const Edit = ({
     if (window.confirm("Are you sure you want to delete?")) {
       try {
         fetch(
-          process.env.REACT_APP_SERVER_URL + "/api/categories/delete-category",
+          (process.env.REACT_APP_SERVER_URL || "https://3.108.171.138") +
+            "/api/categories/delete-category",
           {
             method: "DELETE",
             body: JSON.stringify({ categoryId: id }),

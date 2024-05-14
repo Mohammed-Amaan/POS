@@ -15,7 +15,8 @@ function HomePage() {
     const getCategories = async () => {
       try {
         const res = await fetch(
-          process.env.REACT_APP_SERVER_URL + "/api/categories/get-all"
+          (process.env.REACT_APP_SERVER_URL || "https://3.108.171.138") +
+            "/api/categories/get-all"
         );
         const data = await res.json();
         setCategories(data);

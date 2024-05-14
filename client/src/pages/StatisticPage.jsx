@@ -16,7 +16,8 @@ const StatisticPage = () => {
     const getProduct = async () => {
       try {
         const res = await fetch(
-          process.env.REACT_APP_SERVER_URL + "/api/products/get-all"
+          (process.env.REACT_APP_SERVER_URL || "https://3.108.171.138") +
+            "/api/products/get-all"
         );
         const data = await res.json();
         setProducts(data);
@@ -28,7 +29,10 @@ const StatisticPage = () => {
   }, []);
 
   const asyncFetch = () => {
-    fetch(process.env.REACT_APP_SERVER_URL + "/api/invoices/get-all")
+    fetch(
+      (process.env.REACT_APP_SERVER_URL || "https://3.108.171.138") +
+        "/api/invoices/get-all"
+    )
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => {
