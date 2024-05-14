@@ -14,7 +14,9 @@ const productRoute = require("./routes/products.js");
 const invoiceRoute = require("./routes/invoices.js");
 const authRoute = require("./routes/auth.js");
 const userRoute = require("./routes/users.js");
-
+app.get("/test", (req, res) => {
+  res.send("hello world");
+});
 const connect = async () => {
   try {
     await mongoose.connect(
