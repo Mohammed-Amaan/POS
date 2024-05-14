@@ -17,7 +17,10 @@ const userRoute = require("./routes/users.js");
 
 const connect = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(
+      process.env.MONGO_URI ||
+        "mongodb+srv://amaanmajid444:amaanmajid7f@cluster0.sdmmfqt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    );
     console.log("Connected to MongoDB");
   } catch (error) {
     throw error;
