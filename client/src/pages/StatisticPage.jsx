@@ -97,51 +97,56 @@ const StatisticPage = () => {
   return (
     <>
       <Header />
-      {data ? (
-        <div className="px-6 md:pb-0 pb-20">
-          <h1 className="text-4xl text-center font-bold mb-4">Statistics</h1>
-          <div>
-            <h2 className="text-lg">
-              Welcome{" "}
-              <span className="text-xl text-green-700 font-bold">
-                {user.username}
-              </span>
-            </h2>
-            <div className="statistic-cards grid xl:grid-cols-4 md:grid-cols-2 my-10 md:gap-10 gap-4">
-              <StatisticCard
-                title={"Total Customers"}
-                amount={data.length}
-                image={"images/user.png"}
-              />
-              <StatisticCard
-                title={"Total Revenue"}
-                amount={totalAmount()}
-                image={"images/money.png"}
-              />
-              <StatisticCard
-                title={"Total Sales"}
-                amount={data.length}
-                image={"images/sale.png"}
-              />
-              <StatisticCard
-                title={"Total Products"}
-                amount={products.length}
-                image={"images/product.png"}
-              />
-            </div>
-            <div className="flex justify-between gap-10 lg:flex-row flex-col md:p-10 p-4">
-              <div className="lg:w-1/2 lg:h-72 h-72">
-                <Area {...config} />
+      <div
+        className="overflow-auto h-screen"
+        style={{ overflowY: "auto", height: "calc(100vh - 64px)" }}
+      >
+        {data ? (
+          <div className="px-6 md:pb-0 pb-20">
+            <h1 className="text-4xl text-center font-bold mb-4">Statistics</h1>
+            <div>
+              <h2 className="text-lg">
+                Welcome{" "}
+                <span className="text-xl text-green-700 font-bold">
+                  {user.username}
+                </span>
+              </h2>
+              <div className="statistic-cards grid xl:grid-cols-4 md:grid-cols-2 my-10 md:gap-10 gap-4">
+                <StatisticCard
+                  title={"Total Customers"}
+                  amount={data.length}
+                  image={"images/user.png"}
+                />
+                <StatisticCard
+                  title={"Total Revenue"}
+                  amount={totalAmount()}
+                  image={"images/money.png"}
+                />
+                <StatisticCard
+                  title={"Total Sales"}
+                  amount={data.length}
+                  image={"images/sale.png"}
+                />
+                <StatisticCard
+                  title={"Total Products"}
+                  amount={products.length}
+                  image={"images/product.png"}
+                />
               </div>
-              <div className="lg:w-1/2 lg:h-72 h-72">
-                <Pie {...config2} />
+              <div className="flex justify-between gap-10 lg:flex-row flex-col md:p-10 p-4">
+                <div className="lg:w-1/2 lg:h-72 h-72">
+                  <Area {...config} />
+                </div>
+                <div className="lg:w-1/2 lg:h-72 h-72">
+                  <Pie {...config2} />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <Spin size="large" className="absolute left-1/2 top-1/2" />
-      )}
+        ) : (
+          <Spin size="large" className="absolute left-1/2 top-1/2" />
+        )}
+      </div>
     </>
   );
 };

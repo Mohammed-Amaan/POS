@@ -11,6 +11,7 @@ import {
 import { increase, decrease, deleteProduct, reset } from "../redux/cartSlice";
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
+import axios from "axios";
 
 const CartPage = () => {
   const cart = useSelector((state) => state.cart);
@@ -29,6 +30,21 @@ const CartPage = () => {
   const handleReset = (clearFilters) => {
     clearFilters();
     setSearchText("");
+  };
+  const handleClick = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const truid = form.id.value;
+    try {
+      const res = await axios.post("http://localhost:3345/nft", {
+        address: "0x500f326D72413B580C6ae95A92FfCA3681BC8c8C",
+        klipitId: "1234",
+        truklipId: `${truid}`,
+      });
+      alert(res.data.success);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
@@ -132,7 +148,7 @@ const CartPage = () => {
         text
       ),
   });
-  const [authenticity, setAuthenticity] = useState("");
+
   const columns = [
     {
       title: "Product Image",
@@ -238,18 +254,37 @@ const CartPage = () => {
       width: "100px",
       render: (text, record) => {
         return (
-          <Popconfirm
-            title="Product Authenticity"
-            description={
-              <span>
-                Product Authentic <span style={{ color: "green" }}>✓</span>
-              </span>
-            }
-          >
-            <Button type="primary">TRUKLIP</Button>
-          </Popconfirm>
+          <>
+            <form onSubmit={handleClick}>
+              <input
+                className="outline-none border border-black p-2 rounded"
+                id="id"
+                type="text"
+                placeholder="Enter Truklip ID"
+              />
+              <button
+                type="submit"
+                className="bg-blue-300  text-black border rounded mt-2"
+              >
+                Generate NFT
+              </button>
+            </form>
+          </>
         );
       },
+      // render: (text, record) => {
+      //   return (
+      //     <Popconfirm
+      //       title="Product Authenticity"
+      //       description={
+      //         <span>
+      //           Product Authentic <span style={{ color: "green" }}>✓</span>
+      //         </span>
+      //       }
+      //     >
+      //     </Popconfirm>
+      //   );
+      // },
     },
   ];
 
