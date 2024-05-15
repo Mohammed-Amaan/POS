@@ -12,7 +12,7 @@ const Edit = ({
   const onFinish = (values) => {
     try {
       fetch(
-        (process.env.REACT_APP_SERVER_URL || "http://3.108.171.138:4000") +
+        process.env.REACT_APP_SERVER_URL +
           "/api/categories/update-category",
         {
           method: "PUT",
@@ -38,7 +38,7 @@ const Edit = ({
     if (window.confirm("Are you sure you want to delete?")) {
       try {
         fetch(
-          (process.env.REACT_APP_SERVER_URL || "http://3.108.171.138:4000") +
+          process.env.REACT_APP_SERVER_URL +
             "/api/categories/delete-category",
           {
             method: "DELETE",

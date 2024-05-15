@@ -12,7 +12,7 @@ const Register = () => {
     try {
       setLoading(true);
       const res = await fetch(
-        (process.env.REACT_APP_SERVER_URL || "http://3.108.171.138:4000") +
+        process.env.REACT_APP_SERVER_URL +
           "/api/auth/register",
         {
           method: "POST",
