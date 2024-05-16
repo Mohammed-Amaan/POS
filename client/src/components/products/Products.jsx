@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
 import { PlusOutlined, EditOutlined } from "@ant-design/icons";
 import Add from "../products/Add";
+import AddBulk from "./AddBulk";
 import { useNavigate } from "react-router-dom";
 
 const Products = ({
@@ -12,6 +13,7 @@ const Products = ({
   searched,
 }) => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isAddBulkModalOpen, setIsAddBulkModalOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -19,8 +21,7 @@ const Products = ({
     const getProduct = async () => {
       try {
         const res = await fetch(
-          process.env.REACT_APP_SERVER_URL +
-            "/api/products/get-all"
+          process.env.REACT_APP_SERVER_URL + "/api/products/get-all"
         );
         const data = await res.json();
         setProducts(data);
@@ -45,6 +46,12 @@ const Products = ({
         <PlusOutlined />
       </div>
       <div
+        className="product-item min-h-[180px] bg-blue-600	 border hover:shadow-lg cursor-pointer transition-all select-none flex items-center justify-center md:text-3xl text-white p-10 hover:opacity-90"
+        onClick={() => setIsAddBulkModalOpen(true)}
+      >
+        <p>Add Bulk Products</p>
+      </div>
+      <div
         className="product-item min-h-[180px] bg-fuchsia-600		 border hover:shadow-lg cursor-pointer transition-all select-none flex items-center justify-center md:text-3xl text-white p-10 hover:opacity-90"
         onClick={() => navigate("/products")}
       >
@@ -54,6 +61,13 @@ const Products = ({
       <Add
         isAddModalOpen={isAddModalOpen}
         setIsAddModalOpen={setIsAddModalOpen}
+        products={products}
+        setProducts={setProducts}
+        categories={categories}
+      />
+      <AddBulk
+        isAddBulkModalOpen={isAddBulkModalOpen}
+        setIsAddBulkModalOpen={setIsAddBulkModalOpen}
         products={products}
         setProducts={setProducts}
         categories={categories}
