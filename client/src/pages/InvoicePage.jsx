@@ -23,8 +23,7 @@ const InvoicePage = () => {
     const getInvoices = async () => {
       try {
         const res = await fetch(
-          process.env.REACT_APP_SERVER_URL +
-            "/api/invoices/get-all"
+          process.env.REACT_APP_SERVER_URL + "/api/invoices/get-all"
         );
         const data = await res.json();
         const newData = data.map((item) => {
@@ -49,9 +48,7 @@ const InvoicePage = () => {
     clearFilters();
     setSearchText("");
   };
-  // const showModal = () => {
-  //   setIsModalnowOpen(true);
-  // };
+
   const handleOk = () => {
     setIsModalnowOpen(false);
   };
@@ -202,7 +199,6 @@ const InvoicePage = () => {
       key: "action",
       width: "100px",
       render: (text, record) => {
-        //console.log(record);
         return (
           <>
             <Button

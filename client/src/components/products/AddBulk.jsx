@@ -42,6 +42,7 @@ const AddBulk = ({
             img: product.img,
             price: Number(product.price),
             category: product.category,
+            truklipId: product.truklipId,
           },
         ]);
       } catch (error) {

@@ -26,6 +26,7 @@ const Add = ({
           img: value.img,
           price: Number(value.price),
           category: value.category,
+          truklipId: value.truklipId,
         },
       ]);
     } catch (error) {

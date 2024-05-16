@@ -31,21 +31,7 @@ const CartPage = () => {
     clearFilters();
     setSearchText("");
   };
-  const handleClick = async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const truid = form.id.value;
-    try {
-      const res = await axios.post("http://localhost:3345/nft", {
-        address: "0x500f326D72413B580C6ae95A92FfCA3681BC8c8C",
-        klipitId: "1234",
-        truklipId: `${truid}`,
-      });
-      alert(res.data.success);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
       setSelectedKeys,
