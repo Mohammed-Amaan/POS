@@ -6,6 +6,7 @@ const ProductSchema = mongoose.Schema(
     img: { type: String, required: true },
     price: { type: Number, required: true },
     category: { type: String, required: true },
+    truklipId: { type: String },
   },
   {
     timestamps: true,

@@ -166,6 +166,12 @@ const CartPage = () => {
       ...getColumnSearchProps("title"),
     },
     {
+      title: "Truklip ID",
+      dataIndex: "truklipId",
+      key: `${Math.random()}`,
+      ...getColumnSearchProps("truklipId"),
+    },
+    {
       title: "Category",
       dataIndex: "category",
       key: "category",
@@ -247,45 +253,45 @@ const CartPage = () => {
         );
       },
     },
-    {
-      title: "TruKlip",
-      dataIndex: "truklip",
-      key: `${Math.random()}`,
-      width: "100px",
-      render: (text, record) => {
-        return (
-          <>
-            <form onSubmit={handleClick}>
-              <input
-                className="outline-none border border-black p-2 rounded"
-                id="id"
-                type="text"
-                placeholder="Enter Truklip ID"
-              />
-              <button
-                type="submit"
-                className="bg-blue-300  text-black border rounded mt-2"
-              >
-                Generate NFT
-              </button>
-            </form>
-          </>
-        );
-      },
-      // render: (text, record) => {
-      //   return (
-      //     <Popconfirm
-      //       title="Product Authenticity"
-      //       description={
-      //         <span>
-      //           Product Authentic <span style={{ color: "green" }}>✓</span>
-      //         </span>
-      //       }
-      //     >
-      //     </Popconfirm>
-      //   );
-      // },
-    },
+    // {
+    //   title: "TruKlip",
+    //   dataIndex: "truklip",
+    //   key: `${Math.random()}`,
+    //   width: "100px",
+    //   render: (text, record) => {
+    //     return (
+    //       <>
+    //         <form onSubmit={handleClick}>
+    //           <input
+    //             className="outline-none border border-black p-2 rounded"
+    //             id="id"
+    //             type="text"
+    //             placeholder="Enter Truklip ID"
+    //           />
+    //           <button
+    //             type="submit"
+    //             className="bg-blue-300  text-black border rounded mt-2"
+    //           >
+    //             Generate NFT
+    //           </button>
+    //         </form>
+    //       </>
+    //     );
+    //   },
+    //   // render: (text, record) => {
+    //   //   return (
+    //   //     <Popconfirm
+    //   //       title="Product Authenticity"
+    //   //       description={
+    //   //         <span>
+    //   //           Product Authentic <span style={{ color: "green" }}>✓</span>
+    //   //         </span>
+    //   //       }
+    //   //     >
+    //   //     </Popconfirm>
+    //   //   );
+    //   // },
+    // },
   ];
 
   return (

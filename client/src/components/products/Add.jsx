@@ -78,6 +78,19 @@ const Add = ({
           <Input placeholder="Enter product price" type="number" />
         </Form.Item>
         <Form.Item
+          label={"Truklip ID"}
+          name="truklipId"
+          rules={[
+            {
+              required: false,
+              message: "This field is optional",
+            },
+          ]}
+        >
+          <Input placeholder="Enter truklip Id" />
+        </Form.Item>
+
+        <Form.Item
           label={"Select Category"}
           name="category"
           rules={[

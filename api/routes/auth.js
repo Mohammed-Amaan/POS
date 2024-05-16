@@ -33,7 +33,7 @@ router.post("/login", async (req, res) => {
     if (!validPassword) {
       res.status(403).json("Invalid Password!");
     } else {
-      res.status(200).json("Giriş işlemi başarılı.");
+      res.status(200).json("Login process successful.");
     }
   } catch (error) {
     res.status(500).json(error);
