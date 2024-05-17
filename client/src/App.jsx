@@ -9,6 +9,7 @@ import Login from "./pages/auth/Login";
 import ProductPage from "./pages/ProductPage";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import BlockchainStats from "./pages/BlockchainStats";
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -23,6 +24,7 @@ function App() {
         <Route path="/invoices" element={<InvoicePage />} />
         <Route path="/customers" element={<CustomersPage />} />
         <Route path="/statistics" element={<StatisticPage />} />
+        <Route path="/bstatistics" element={<BlockchainStats />} />
         <Route path="/products" element={<ProductPage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

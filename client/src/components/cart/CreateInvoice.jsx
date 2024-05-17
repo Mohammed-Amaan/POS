@@ -2,6 +2,7 @@ import { Form, Modal, Input, Select, Card, Button, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { reset } from "../../redux/cartSlice";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const CreateInvoice = ({ isModalOpen, setIsModalOpen }) => {
   const cart = useSelector((state) => state.cart);
@@ -9,11 +10,22 @@ const CreateInvoice = ({ isModalOpen, setIsModalOpen }) => {
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
+    const totalSalesAmount = (
+      cart.total +
+      (cart.total * cart.tax) / 100
+    ).toFixed(2);
+    try {
+      const result = await axios.post("http://localhost:3345/stats/invoice", {
+        adminId: "787",
+        totalAmount: totalSalesAmount * 100,
+      });
+      message.success(result.data.success);
+    } catch (error) {
+      console.log(error);
+    }
     try {
       var res = await fetch(
-        (process.env.REACT_APP_SERVER_URL ||
-          "http://3.108.171.138:4000" ||
-          "http://3.108.171.138:4000") + "/api/invoices/add-invoice",
+        process.env.REACT_APP_SERVER_URL + "/api/invoices/add-invoice",
         {
           method: "POST",
           body: JSON.stringify({

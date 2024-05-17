@@ -102,6 +102,17 @@ const Header = ({ setSearched }) => {
             <BarChartOutlined className="md:text-2xl text-xl" />
             <span className="md:text-xs text-[10px]">Statistics</span>
           </Link>
+          <Link
+            to="/bstatistics"
+            className={`menu-link ${
+              pathname === "/bstatistics" && " text-[#40a9ff]"
+            } `}
+          >
+            <BarChartOutlined className="md:text-2xl text-xl" />
+            <span className="md:text-xs text-[10px]">
+              Blockchain Statistics
+            </span>
+          </Link>
           <div onClick={logout}>
             <Link className="menu-link">
               <LogoutOutlined className="md:text-2xl text-xl" />
