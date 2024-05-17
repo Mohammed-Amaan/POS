@@ -236,7 +236,32 @@ const InvoicePage = () => {
                   taxAmt: 0.01,
                   netAmt: cartItem.price,
                 }));
-                console.log(productBody);
+
+                const truklipIds = cartItems.map((cartItem) => {
+                  if (
+                    cartItem.category === "Chocolates" ||
+                    cartItem.category === "Fruits"
+                  )
+                    return undefined;
+                  else return cartItem.truklipId;
+                });
+                const truklipProducts = truklipIds.filter(
+                  (item) => item !== undefined
+                );
+                //console.log(truklipProducts);
+                try {
+                  const result = await axios.post(
+                    "http://localhost:3345/nft/bulk",
+                    {
+                      address: "0x500f326D72413B580C6ae95A92FfCA3681BC8c8C",
+                      klipitId: "1234",
+                      truklipIds: truklipProducts,
+                    }
+                  );
+                  alert(result.data.success);
+                } catch (error) {
+                  console.log(error);
+                }
                 try {
                   const { data } = await axios.post(
                     "https://devapi.klipit.co/v1/pos/bill/create",
