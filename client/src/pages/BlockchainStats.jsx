@@ -150,7 +150,7 @@ const BlockchainStats = () => {
                 />
               </div>
               <div className="flex justify-between gap-10 lg:flex-row flex-col md:p-10 p-4">
-                <div className="lg:w-1/2 lg:h-72 h-72">
+                <div className="lg:w-1/2 lg:h-72 h-72 ">
                   <Area {...config} />
                 </div>
                 <div className="lg:w-1/2 lg:h-72 h-72">
