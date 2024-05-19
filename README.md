@@ -8,6 +8,6 @@ Link : https://ssa-pos-application.onrender.com
 
 You can login with the following username and password without registration.
 
-username : admin@admin.com
+username : amaanmajid@gmail.com
 
 password : 12345
