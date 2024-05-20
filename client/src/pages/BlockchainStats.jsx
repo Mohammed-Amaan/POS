@@ -42,7 +42,7 @@ const BlockchainStats = () => {
   const fetchTotalAmount = async () => {
     try {
       const result = await axios.post("http://localhost:3345/stats/amount", {
-        adminId: 787,
+        adminId: 988,
       });
       setTotalRevenue(result.data.TotalSalesAmount / 100);
     } catch (error) {
@@ -53,7 +53,7 @@ const BlockchainStats = () => {
   const fetchTotalSales = async () => {
     try {
       const sales = await axios.post("http://localhost:3345/stats/sales", {
-        adminId: 787,
+        adminId: 988,
       });
       setTotalSalesCount(sales.data.TotalSales);
     } catch (error) {
