@@ -2,11 +2,16 @@ import Header from "../components/header/Header";
 import StatisticCard from "../components/statistic/StatisticCard";
 import React, { useState, useEffect } from "react";
 import { Area, Pie } from "@ant-design/plots";
-import { Spin } from "antd";
+import { Spin, Button } from "antd";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import { DateRangePicker } from "react-date-range";
 
 const StatisticPage = () => {
-  const [data, setData] = useState();
+  const [allInvoice, setAllInvoice] = useState();
+  const [Invoice, setInvoice] = useState([]);
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     asyncFetch();
@@ -27,22 +32,25 @@ const StatisticPage = () => {
     getProduct();
   }, []);
 
-  const asyncFetch = () => {
-    fetch(process.env.REACT_APP_SERVER_URL + "/api/invoices/get-all")
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => {
-        console.log("fetch data failed", error);
-      });
+  const asyncFetch = async () => {
+    try {
+      const res = await fetch(
+        process.env.REACT_APP_SERVER_URL + "/api/invoices/get-all"
+      );
+      const result = await res.json();
+      setAllInvoice(result);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const totalAmount = () => {
-    const amount = data.reduce((total, item) => item.totalAmount + total, 0);
+    const amount = Invoice.reduce((total, item) => item.totalAmount + total, 0);
     return `${amount.toFixed(2)}  AED`;
   };
 
   const config = {
-    data,
+    data: Invoice,
     xField: "customerName",
     yField: "subTotal",
     xAxis: {
@@ -52,7 +60,7 @@ const StatisticPage = () => {
 
   const config2 = {
     appendPadding: 10,
-    data,
+    data: Invoice,
     angleField: "subTotal",
     colorField: "customerName",
     radius: 1,
@@ -90,6 +98,38 @@ const StatisticPage = () => {
   const localStr = localStorage.getItem("postUser");
   const user = JSON.parse(localStr);
 
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const selectionRange = {
+    startDate: startDate,
+    endDate: endDate,
+    key: "selection",
+  };
+  const handleSelect = (date) => {
+    let filtered = allInvoice.filter((invoice) => {
+      let invoiceDate = new Date(invoice["createdAt"]);
+      return (
+        invoiceDate >= date.selection.startDate &&
+        invoiceDate <= date.selection.endDate
+      );
+    });
+    let filterProducts = products.filter((product) => {
+      let productDate = new Date(product["createdAt"]);
+      return (
+        productDate >= date.selection.startDate &&
+        productDate <= date.selection.endDate
+      );
+    });
+    setStartDate(date.selection.startDate);
+    setEndDate(date.selection.endDate);
+    setInvoice(filtered);
+    setFilteredProducts(filterProducts);
+  };
+  const toggleDatePicker = () => {
+    setDatePickerVisibility(!isDatePickerVisible);
+  };
+
   return (
     <>
       <Header />
@@ -97,7 +137,7 @@ const StatisticPage = () => {
         className="overflow-auto h-screen"
         style={{ overflowY: "auto", height: "calc(100vh - 64px)" }}
       >
-        {data ? (
+        {Invoice ? (
           <div className="px-6 md:pb-0 pb-20">
             <h1 className="text-4xl text-center font-bold mb-4">Statistics</h1>
             <div>
@@ -107,10 +147,11 @@ const StatisticPage = () => {
                   {user.username}
                 </span>
               </h2>
+
               <div className="statistic-cards grid xl:grid-cols-4 md:grid-cols-2 my-10 md:gap-10 gap-4">
                 <StatisticCard
                   title={"Total Customers"}
-                  amount={data.length}
+                  amount={Invoice.length}
                   image={"images/user.png"}
                 />
                 <StatisticCard
@@ -120,15 +161,24 @@ const StatisticPage = () => {
                 />
                 <StatisticCard
                   title={"Total Sales"}
-                  amount={data.length}
+                  amount={Invoice.length}
                   image={"images/sale.png"}
                 />
                 <StatisticCard
                   title={"Total Products"}
-                  amount={products.length}
+                  amount={filteredProducts.length}
                   image={"images/product.png"}
                 />
               </div>
+              <Button type="primary" onClick={toggleDatePicker}>
+                Filter By Date
+              </Button>
+              {isDatePickerVisible && (
+                <DateRangePicker
+                  ranges={[selectionRange]}
+                  onChange={handleSelect}
+                />
+              )}
               <div className="flex justify-between gap-10 lg:flex-row flex-col md:p-10 p-4">
                 <div className="lg:w-1/2 lg:h-72 h-72">
                   <Area {...config} />
