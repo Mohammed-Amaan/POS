@@ -43,6 +43,10 @@ const AddBulk = ({
             price: Number(product.price),
             category: product.category,
             truklipId: product.truklipId,
+            nftCompatible: product.nftCompatible,
+            unitQuantity: product.unitQuantity,
+            barcode: product.barcode,
+            subCategory: product.subCategory,
           },
         ]);
       } catch (error) {
