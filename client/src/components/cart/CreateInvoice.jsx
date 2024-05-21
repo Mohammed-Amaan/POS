@@ -15,7 +15,7 @@ const CreateInvoice = ({ isModalOpen, setIsModalOpen }) => {
     console.log(klipitId);
     try {
       const result = await axios.post(
-        "http://localhost:4000/customer/viewCustomer",
+        process.env.REACT_APP_SERVER_URL + "/customer/viewCustomer",
         {
           klipitId: klipitId,
         }
@@ -31,14 +31,13 @@ const CreateInvoice = ({ isModalOpen, setIsModalOpen }) => {
     }
   };
   const onFinish = async (values) => {
-    //mint bulk nft API
     const truklipIds = cart.cartItems.map((cartItem) => {
-      if (cartItem.category === "Chocolates" || cartItem.category === "Fruits")
+      if (cartItem.nftCompatible === "no" || cartItem.nftCompatible === "No")
         return undefined;
       else return cartItem.truklipId;
     });
     const truklipProducts = truklipIds.filter((item) => item !== undefined);
-    //console.log(truklipProducts);
+    console.log(truklipProducts);
     try {
       const result = await axios.post("http://localhost:3345/nft/bulk", {
         address: "0x500f326D72413B580C6ae95A92FfCA3681BC8c8C",
@@ -88,20 +87,20 @@ const CreateInvoice = ({ isModalOpen, setIsModalOpen }) => {
           billInfo: {
             localized: true,
             header: {
-              name: "Nayaab Handi",
-              groupName: "Nayaab",
+              name: "Lulu Hypermarket",
+              groupName: "Lulu Group",
               address: "Dubai Mall",
-              email: "nayaab.handi@gmail.com",
+              email: "lulu.hyper@gmail.com",
               taxRegNo: "345568789600",
               contactNo: "+179 5667898643",
-              website: "www.demofashion.ae",
-              timestamp: 1716191171142,
+              website: "www.lulu.ae",
+              timestamp: new Date().getTime(),
               timezone: "Asia/Dubai",
               receiptNo: "#12563",
               tableNo: "T11",
               cashier: "Atif Mian",
               locale: {
-                name: "fasion لكن",
+                name: "Hypermarket لكن",
                 groupName: "شركة ايه بي سي للتجارة ذ",
                 address: "الطابق السابع ، الغرفة الذهبية ، دبي",
               },
@@ -214,7 +213,7 @@ const CreateInvoice = ({ isModalOpen, setIsModalOpen }) => {
 
     try {
       const result = await axios.post("http://localhost:3345/stats/invoice", {
-        adminId: "988",
+        adminId: "999",
         totalAmount: totalSalesAmount * 100,
       });
       message.success(result.data.success);
@@ -243,8 +242,10 @@ const CreateInvoice = ({ isModalOpen, setIsModalOpen }) => {
       if (res.status === 200) {
         message.success("Invoice Created Successfully.");
         setIsModalOpen(false);
-        dispatch(reset());
-        navigate("/invoices");
+        setTimeout(() => {
+          dispatch(reset());
+          navigate("/invoices");
+        }, 1000);
       }
     } catch (error) {
       message.error("Operation Failed.");
@@ -333,7 +334,7 @@ const CreateInvoice = ({ isModalOpen, setIsModalOpen }) => {
               onClick={() => setIsModalOpen(true)}
               htmlType="submit"
             >
-              Create Order & klipit
+              Create Invoice & klipit
             </Button>
           </div>
         </Card>

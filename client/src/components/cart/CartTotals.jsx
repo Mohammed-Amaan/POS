@@ -115,7 +115,7 @@ const CartTotals = () => {
             disabled={cart.cartItems.length > 0 ? false : true}
             onClick={() => navigate("/cart")}
           >
-            Create Order
+            Add to Cart
           </Button>
 
           <Popconfirm
