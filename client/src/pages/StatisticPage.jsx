@@ -106,6 +106,7 @@ const StatisticPage = () => {
     endDate: endDate,
     key: "selection",
   };
+
   const handleSelect = (date) => {
     let filtered = allInvoice.filter((invoice) => {
       let invoiceDate = new Date(invoice["createdAt"]);
@@ -129,7 +130,11 @@ const StatisticPage = () => {
   const toggleDatePicker = () => {
     setDatePickerVisibility(!isDatePickerVisible);
   };
-
+  const displayDate = () => {
+    let start = startDate.toString().substring(0, 16);
+    let end = endDate.toString().substring(0, 16);
+    return start === end ? `${start}` : `${start}-${end}`;
+  };
   return (
     <>
       <Header />
@@ -147,6 +152,7 @@ const StatisticPage = () => {
                   {user.username}
                 </span>
               </h2>
+              <h2 className="text-center font-bold text-xl">{`Statistics of ${displayDate()}`}</h2>
 
               <div className="statistic-cards grid xl:grid-cols-4 md:grid-cols-2 my-10 md:gap-10 gap-4">
                 <StatisticCard
