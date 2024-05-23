@@ -38,17 +38,18 @@ const CreateInvoice = ({ isModalOpen, setIsModalOpen }) => {
     });
     const truklipProducts = truklipIds.filter((item) => item !== undefined);
     console.log(truklipProducts);
-    try {
-      const result = await axios.post("http://localhost:3345/nft/bulk", {
-        address: "0x500f326D72413B580C6ae95A92FfCA3681BC8c8C",
-        klipitId: "1234",
-        truklipIds: truklipProducts,
-      });
-      message.success(result.data.success);
-    } catch (error) {
-      console.log(error);
+    if (truklipProducts.length > 0) {
+      try {
+        const result = await axios.post("http://localhost:3345/nft/bulk", {
+          address: "0x500f326D72413B580C6ae95A92FfCA3681BC8c8C",
+          klipitId: "1234",
+          truklipIds: truklipProducts,
+        });
+        message.success(result.data.success);
+      } catch (error) {
+        console.log(error);
+      }
     }
-
     //create bill api
     let floor = Math.floor;
     const paymentMode = form.getFieldValue("paymentMode");
@@ -212,10 +213,13 @@ const CreateInvoice = ({ isModalOpen, setIsModalOpen }) => {
     ).toFixed(2);
 
     try {
-      const result = await axios.post("http://localhost:3345/stats/invoice", {
-        adminId: "999",
-        totalAmount: totalSalesAmount * 100,
-      });
+      const result = await axios.post(
+        "http://localhost:3345/stats/new/invoice",
+        {
+          adminId: "178",
+          totalAmount: totalSalesAmount * 100,
+        }
+      );
       message.success(result.data.success);
     } catch (error) {
       console.log(error);
@@ -242,10 +246,8 @@ const CreateInvoice = ({ isModalOpen, setIsModalOpen }) => {
       if (res.status === 200) {
         message.success("Invoice Created Successfully.");
         setIsModalOpen(false);
-        setTimeout(() => {
-          dispatch(reset());
-          navigate("/invoices");
-        }, 1000);
+        dispatch(reset());
+        navigate("/");
       }
     } catch (error) {
       message.error("Operation Failed.");
