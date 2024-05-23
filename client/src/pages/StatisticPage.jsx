@@ -1,7 +1,7 @@
 import Header from "../components/header/Header";
 import StatisticCard from "../components/statistic/StatisticCard";
 import React, { useState, useEffect } from "react";
-import { Area, Pie } from "@ant-design/plots";
+import { Area, Bar, Pie } from "@ant-design/plots";
 import { Spin, Button } from "antd";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -117,6 +117,7 @@ const StatisticPage = () => {
     });
     let filterProducts = products.filter((product) => {
       let productDate = new Date(product["createdAt"]);
+
       return (
         productDate >= date.selection.startDate &&
         productDate <= date.selection.endDate
@@ -187,7 +188,7 @@ const StatisticPage = () => {
               )}
               <div className="flex justify-between gap-10 lg:flex-row flex-col md:p-10 p-4">
                 <div className="lg:w-1/2 lg:h-72 h-72">
-                  <Area {...config} />
+                  <Bar {...config} />
                 </div>
                 <div className="lg:w-1/2 lg:h-72 h-72">
                   <Pie {...config2} />
