@@ -1,4 +1,5 @@
 import { Button, Popconfirm, message } from "antd";
+import BarcodeScan from "../products/BarcodeScan";
 import {
   ClearOutlined,
   PlusCircleOutlined,
@@ -12,12 +13,13 @@ import {
   reset,
 } from "../../redux/cartSlice";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const CartTotals = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
-
+  const [barcodeModal, setBarcodeModal] = useState(false);
   return (
     <div className="cart h-full max-h-[calc(100vh_-_90px)] flex flex-col">
       <h2 className="bg-blue-600 text-white p-4 font-bold tracking-wide">
@@ -117,6 +119,16 @@ const CartTotals = () => {
           >
             Add to Cart
           </Button>
+          <Button
+            type="primary"
+            size="large"
+            className="w-full my-2 "
+            onClick={() => {
+              setBarcodeModal(true);
+            }}
+          >
+            Scan Items
+          </Button>
 
           <Popconfirm
             title="Delete Products"
@@ -141,6 +153,10 @@ const CartTotals = () => {
               ""
             )}
           </Popconfirm>
+          <BarcodeScan
+            barcodeModal={barcodeModal}
+            setBarcodeModal={setBarcodeModal}
+          />
         </div>
       </div>
     </div>
