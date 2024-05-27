@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import useScanDetection from "use-scan-detection";
 import { Modal, Button } from "antd";
-
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../redux/cartSlice";
 function BarcodeScan({ barcodeModal, setBarcodeModal }) {
-  const [barcodeScan, setBarcodeScan] = useState("No barcode scanned");
+  const dispatch = useDispatch();
+  const [barcodeScan, setBarcodeScan] = useState("no barcode scanned");
   console.log(barcodeScan);
 
   useScanDetection({
@@ -11,9 +14,20 @@ function BarcodeScan({ barcodeModal, setBarcodeModal }) {
     minLength: 3,
   });
 
-  const handleAddProducts = () => {
+  const handleAddProducts = async () => {
     console.log("Product added with barcode:", barcodeScan);
-    //send data to db and fetch product details and add to cart.
+    try {
+      const result = await axios.get(
+        `http://localhost:4000/api/products/get-one/${barcodeScan}`
+      );
+      dispatch(
+        addProduct({ ...result.data, quantity: 1, key: result.data._id })
+      );
+      setBarcodeScan(null);
+      setBarcodeModal(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
