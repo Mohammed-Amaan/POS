@@ -30,9 +30,12 @@ const BlockchainStats = () => {
   };
   const fetchAllInvoices = async () => {
     try {
-      const result = await axios.post("http://localhost:3345/stats/new/get", {
-        adminId: 178,
-      });
+      const result = await axios.post(
+        process.env.REACT_APP_SERVER_URL + "/stats/new/get",
+        {
+          adminId: 178,
+        }
+      );
       setAllInvoices(result.data.tx);
     } catch (error) {
       console.log(error);

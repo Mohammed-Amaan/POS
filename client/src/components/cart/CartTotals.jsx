@@ -31,7 +31,8 @@ const CartTotals = () => {
   const handleScanBarcode = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:4000/api/products/get-one/${barcodeScan}`
+        process.env.REACT_APP_SERVER_URL +
+          `/api/products/get-one/${barcodeScan}`
       );
       dispatch(
         addProduct({ ...result.data, quantity: 1, key: result.data._id })

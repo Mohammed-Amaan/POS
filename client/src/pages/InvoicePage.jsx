@@ -251,7 +251,7 @@ const InvoicePage = () => {
                 //console.log(truklipProducts);
                 try {
                   const result = await axios.post(
-                    "http://localhost:3345/nft/bulk",
+                    process.env.REACT_APP_SERVER_URL + "/nft/bulk",
                     {
                       address: "0x500f326D72413B580C6ae95A92FfCA3681BC8c8C",
                       klipitId: "1234",

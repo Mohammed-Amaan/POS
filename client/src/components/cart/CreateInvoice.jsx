@@ -46,11 +46,14 @@ const CreateInvoice = ({ isModalOpen, setIsModalOpen }) => {
     console.log(truklipProducts);
     if (truklipProducts.length > 0) {
       try {
-        const result = await axios.post("http://localhost:3345/nft/bulk", {
-          address: "0x500f326D72413B580C6ae95A92FfCA3681BC8c8C",
-          klipitId: "1234",
-          truklipIds: truklipProducts,
-        });
+        const result = await axios.post(
+          process.env.REACT_APP_SERVER_URL + "/nft/bulk",
+          {
+            address: "0x500f326D72413B580C6ae95A92FfCA3681BC8c8C",
+            klipitId: "1234",
+            truklipIds: truklipProducts,
+          }
+        );
         message.success(result.data.success);
       } catch (error) {
         console.log(error);
@@ -220,7 +223,7 @@ const CreateInvoice = ({ isModalOpen, setIsModalOpen }) => {
 
     try {
       const result = await axios.post(
-        "http://localhost:3345/stats/new/invoice",
+        process.env.REACT_APP_SERVER_URL + "/stats/new/invoice",
         {
           adminId: "178",
           totalAmount: totalSalesAmount * 100,
