@@ -2,16 +2,21 @@ import { Form, Modal, Input, Select, Card, Button, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { reset } from "../../redux/cartSlice";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
-
+import useScanDetection from "use-scan-detection";
 const CreateInvoice = ({ isModalOpen, setIsModalOpen }) => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form] = Form.useForm();
-
+  const [barcodeScan, setBarcodeScan] = useState("no barcode scanned");
+  useScanDetection({
+    onComplete: (code) => setBarcodeScan(code),
+    minLength: 3,
+  });
   const handleKlipCustomer = async () => {
-    const klipitId = form.getFieldValue("klipitId");
+    const klipitId = form.getFieldValue("klipitId") || barcodeScan;
     console.log(klipitId);
     try {
       const result = await axios.post(
@@ -26,6 +31,7 @@ const CreateInvoice = ({ isModalOpen, setIsModalOpen }) => {
         customerName: name,
         customerPhoneNumber: phone,
       });
+      setBarcodeScan("");
     } catch (error) {
       console.log(error);
     }
@@ -270,7 +276,10 @@ const CreateInvoice = ({ isModalOpen, setIsModalOpen }) => {
             { required: true, message: "Please enter customer klipit ID!" },
           ]}
         >
-          <Input placeholder="Enter klipit ID..." onBlur={handleKlipCustomer} />
+          <Input
+            placeholder="Enter klipit ID..."
+            onChange={handleKlipCustomer}
+          />
         </Form.Item>
         <Form.Item
           name={"customerName"}
