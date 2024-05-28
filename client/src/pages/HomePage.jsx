@@ -15,9 +15,10 @@ function HomePage() {
     const getCategories = async () => {
       try {
         const res = await fetch(
-          process.env.REACT_APP_SERVER_URL + "/api/categories/get-all"
+          "https://truklip-pos-server.vercel.app/api/categories/get-all"
         );
         const data = await res.json();
+        console.log(data);
         setCategories(data);
       } catch (error) {
         console.log(error);
