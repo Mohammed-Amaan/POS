@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy":"http://13.233.223.105:4000",
+  "proxy":"https://truklip-pos-server-iwiyc4lxu-amaan-majids-projects.vercel.app/",
   "dependencies": {
     "@ant-design/charts": "^2.1.1",
     "@ant-design/icons": "^5.3.7",
