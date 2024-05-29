@@ -47,5 +47,5 @@ app.get("/hello", (req, res) => {
 });
 app.listen(port, () => {
   connect();
-  console.log(`Listening on port ${port}`);
+  console.log(`Listening on port: ${port}`);
 });
