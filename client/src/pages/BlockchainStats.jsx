@@ -33,7 +33,7 @@ const BlockchainStats = () => {
       const result = await axios.post(
         process.env.REACT_APP_SERVER_URL + "/stats/new/get",
         {
-          adminId: 178,
+          adminId: 2024,
         }
       );
       setAllInvoices(result.data.tx);

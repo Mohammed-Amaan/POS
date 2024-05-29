@@ -225,7 +225,7 @@ const CreateInvoice = ({ isModalOpen, setIsModalOpen }) => {
       const result = await axios.post(
         process.env.REACT_APP_SERVER_URL + "/stats/new/invoice",
         {
-          adminId: "178",
+          adminId: "2024",
           totalAmount: totalSalesAmount * 100,
         }
       );
