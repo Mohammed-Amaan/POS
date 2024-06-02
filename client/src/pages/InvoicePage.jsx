@@ -17,9 +17,7 @@ const InvoicePage = () => {
   const searchInput = useRef(null);
 
   useEffect(() => {
-    console.log(
-      process.env.REACT_APP_SERVER_URL || "http://3.108.171.138:4000"
-    );
+    
     const getInvoices = async () => {
       try {
         const res = await fetch(
@@ -212,7 +210,7 @@ const InvoicePage = () => {
             >
               Print
             </Button>
-            <Button
+            <Button className="my-2"
               size="small"
               type="primary"
               style={{
