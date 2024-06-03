@@ -1,5 +1,4 @@
 # MERN Stack PoS Application
-Project cloned from https://github.com/sinansaricayir/mern-stack-pos-application.git 
 
 This project is built using the MERN(MongoDB, Express.js, React.js, Node.js) Stack. 
 
