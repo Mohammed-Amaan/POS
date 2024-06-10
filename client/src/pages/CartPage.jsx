@@ -1,6 +1,7 @@
 import Header from "../components/header/Header";
 import { Table, Card, Button, message, Popconfirm, Input, Space } from "antd";
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CreateInvoice from "../components/cart/CreateInvoice";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -14,6 +15,7 @@ import Highlighter from "react-highlight-words";
 import axios from "axios";
 
 const CartPage = () => {
+  const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch(increase);
@@ -239,45 +241,6 @@ const CartPage = () => {
         );
       },
     },
-    // {
-    //   title: "TruKlip",
-    //   dataIndex: "truklip",
-    //   key: `${Math.random()}`,
-    //   width: "100px",
-    //   render: (text, record) => {
-    //     return (
-    //       <>
-    //         <form onSubmit={handleClick}>
-    //           <input
-    //             className="outline-none border border-black p-2 rounded"
-    //             id="id"
-    //             type="text"
-    //             placeholder="Enter Truklip ID"
-    //           />
-    //           <button
-    //             type="submit"
-    //             className="bg-blue-300  text-black border rounded mt-2"
-    //           >
-    //             Generate NFT
-    //           </button>
-    //         </form>
-    //       </>
-    //     );
-    //   },
-    //   // render: (text, record) => {
-    //   //   return (
-    //   //     <Popconfirm
-    //   //       title="Product Authenticity"
-    //   //       description={
-    //   //         <span>
-    //   //           Product Authentic <span style={{ color: "green" }}>✓</span>
-    //   //         </span>
-    //   //       }
-    //   //     >
-    //   //     </Popconfirm>
-    //   //   );
-    //   // },
-    // },
   ];
 
   return (
@@ -294,6 +257,9 @@ const CartPage = () => {
           pagination={false}
           scroll={{ x: 1200, y: 400 }}
         />
+        <Button type="primary" className="my-1" onClick={() => navigate("/")}>
+          Add Products
+        </Button>
         <div className="flex justify-end mt-4 mb-16">
           <Card className="w-72">
             <div className="flex justify-between">

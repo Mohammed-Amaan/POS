@@ -27,6 +27,10 @@ const Add = ({
           price: Number(value.price),
           category: value.category,
           truklipId: value.truklipId,
+          nftCompatible: value.nftCompatible,
+          unitQuantity: value.unitQuantity,
+          barcode: value.barcode,
+          subCategory: value.subCategory,
         },
       ]);
     } catch (error) {
@@ -117,6 +121,54 @@ const Add = ({
               return { value: item.title, label: item.title };
             })}
           />
+        </Form.Item>
+        <Form.Item
+          label={"Sub Category"}
+          name="subCategory"
+          rules={[
+            {
+              required: false,
+              message: "This field is optional",
+            },
+          ]}
+        >
+          <Input placeholder="Enter sub category" />
+        </Form.Item>
+        <Form.Item
+          label={"NFT Comaptibility"}
+          name="nftCompatibility"
+          rules={[
+            {
+              required: false,
+              message: "This field is optional",
+            },
+          ]}
+        >
+          <Input placeholder="yes/no" />
+        </Form.Item>
+        <Form.Item
+          label={"Unit Quantity"}
+          name="unitQuantity"
+          rules={[
+            {
+              required: false,
+              message: "This field is optional",
+            },
+          ]}
+        >
+          <Input placeholder="Enter unit quantity" />
+        </Form.Item>
+        <Form.Item
+          label={"Barcode"}
+          name="barcode"
+          rules={[
+            {
+              required: false,
+              message: "This field is optional",
+            },
+          ]}
+        >
+          <Input placeholder="Enter barcode" />
         </Form.Item>
         <Form.Item className="flex justify-end mb-0">
           <Button type="primary" htmlType="submit">

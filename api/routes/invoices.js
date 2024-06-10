@@ -33,14 +33,13 @@ router.get("/get-all", async (req, res) => {
 //   }
 // });
 
-//! delete invoice
-// router.delete("/delete-invoice", async (req, res) => {
-//   try {
-//     await Invoice.findOneAndDelete({ _id: req.body.invoiceId });
-//     res.status(200).json("Item deleted successfully.");
-//   } catch (error) {
-//     res.send(400).json(error);
-//   }
-// });
+router.delete("/delete-invoice", async (req, res) => {
+  try {
+    await Invoice.deleteMany({});
+    res.status(200).json("All invoices deleted successfully.");
+  } catch (error) {
+    res.send(400).json(error);
+  }
+});
 
 module.exports = router;

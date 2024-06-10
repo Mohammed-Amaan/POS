@@ -17,9 +17,7 @@ const InvoicePage = () => {
   const searchInput = useRef(null);
 
   useEffect(() => {
-    console.log(
-      process.env.REACT_APP_SERVER_URL || "http://3.108.171.138:4000"
-    );
+    
     const getInvoices = async () => {
       try {
         const res = await fetch(
@@ -212,7 +210,7 @@ const InvoicePage = () => {
             >
               Print
             </Button>
-            <Button
+            <Button className="my-2"
               size="small"
               type="primary"
               style={{
@@ -251,7 +249,7 @@ const InvoicePage = () => {
                 //console.log(truklipProducts);
                 try {
                   const result = await axios.post(
-                    "http://localhost:3345/nft/bulk",
+                    process.env.REACT_APP_SERVER_URL + "/nft/bulk",
                     {
                       address: "0x500f326D72413B580C6ae95A92FfCA3681BC8c8C",
                       klipitId: "1234",
@@ -286,7 +284,7 @@ const InvoicePage = () => {
                           taxRegNo: "345568789600",
                           contactNo: "+179 5667898643",
                           website: "www.demofashion.ae",
-                          timestamp: 1715166016726,
+                          timestamp: 1716191171142,
                           timezone: "Asia/Dubai",
                           receiptNo: "#12563",
                           tableNo: "T11",

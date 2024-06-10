@@ -1,4 +1,10 @@
 import { Button, Popconfirm, message } from "antd";
+import BarcodeScan from "../products/BarcodeScan";
+import axios from "axios";
+import useScanDetection from "use-scan-detection";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { addProduct } from "../../redux/cartSlice";
 import {
   ClearOutlined,
   PlusCircleOutlined,
@@ -11,13 +17,31 @@ import {
   decrease,
   reset,
 } from "../../redux/cartSlice";
-import { useNavigate } from "react-router-dom";
 
 const CartTotals = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
-
+  const [barcodeModal, setBarcodeModal] = useState(false);
+  const [barcodeScan, setBarcodeScan] = useState("no barcode scanned");
+  useScanDetection({
+    onComplete: (code) => setBarcodeScan(code),
+    minLength: 3,
+  });
+  const handleScanBarcode = async () => {
+    try {
+      const result = await axios.get(
+        process.env.REACT_APP_SERVER_URL +
+          `/api/products/get-one/${barcodeScan}`
+      );
+      dispatch(
+        addProduct({ ...result.data, quantity: 1, key: result.data._id })
+      );
+      setBarcodeScan(null);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="cart h-full max-h-[calc(100vh_-_90px)] flex flex-col">
       <h2 className="bg-blue-600 text-white p-4 font-bold tracking-wide">
@@ -38,7 +62,8 @@ const CartTotals = () => {
                   <div className="flex flex-col pl-2">
                     <b>{item.title}</b>
                     <span>
-                      {item.price.toFixed(2)} AED x {item.quantity}
+                      {item.price && item.price.toFixed(2)} AED x{" "}
+                      {item.quantity}
                     </span>
                   </div>
                 </div>
@@ -83,7 +108,12 @@ const CartTotals = () => {
           <div className="flex justify-between p-2">
             <b>Subtotal</b>
             <span>
-              {cart.total.toFixed(2) > 0 ? cart.total.toFixed(2) : 0} AED
+              <span>
+                {cart.total && cart.total.toFixed(2) > 0
+                  ? cart.total.toFixed(2)
+                  : 0}{" "}
+                AED
+              </span>
             </span>
           </div>
           <div className="flex justify-between p-2">
@@ -115,9 +145,16 @@ const CartTotals = () => {
             disabled={cart.cartItems.length > 0 ? false : true}
             onClick={() => navigate("/cart")}
           >
-            Create Order
+            Add to Cart
           </Button>
-
+          <Button
+            type="primary"
+            size="large"
+            className="w-full my-2 "
+            onClick={handleScanBarcode}
+          >
+            Scan Items
+          </Button>
           <Popconfirm
             title="Delete Products"
             description="Are you sure you want to delete the products?"
@@ -141,6 +178,10 @@ const CartTotals = () => {
               ""
             )}
           </Popconfirm>
+          <BarcodeScan
+            barcodeModal={barcodeModal}
+            setBarcodeModal={setBarcodeModal}
+          />
         </div>
       </div>
     </div>
